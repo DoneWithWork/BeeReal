@@ -1,0 +1,25 @@
+{
+  "name": "webscrapper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node main.ts",
+    "codes": "ts-node codes.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.1.0",
+    "puppeteer": "^23.11.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "prisma": "^6.1.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

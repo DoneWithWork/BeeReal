@@ -8,18 +8,36 @@ importers:
 
   .:
     dependencies:
+      '@neondatabase/serverless':
+        specifier: ^0.10.4
+        version: 0.10.4
+      '@prisma/adapter-neon':
+        specifier: ^6.1.0
+        version: 6.1.0(@neondatabase/serverless@0.10.4)
+      '@prisma/client':
+        specifier: ^6.1.0
+        version: 6.1.0(prisma@6.1.0)
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       hono:
         specifier: ^4.6.15
         version: 4.6.15
       next:
         specifier: 14.2.5
         version: 14.2.5(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      prisma:
+        specifier: ^6.1.0
+        version: 6.1.0
       react:
         specifier: 18.2.0
         version: 18.2.0
       react-dom:
         specifier: 18.2.0
         version: 18.2.0(react@18.2.0)
+      ws:
+        specifier: ^8.18.0
+        version: 8.18.0
     devDependencies:
       '@types/node':
         specifier: 18.11.18
@@ -30,11 +48,17 @@ importers:
       '@types/react-dom':
         specifier: 18.0.10
         version: 18.0.10
+      '@types/ws':
+        specifier: ^8.5.13
+        version: 8.5.13
       typescript:
         specifier: ^5
         version: 5.7.2
 
 packages:
+
+  '@neondatabase/serverless@0.10.4':
+    resolution: {integrity: sha512-2nZuh3VUO9voBauuh+IGYRhGU/MskWHt1IuZvHcJw6GLjDgtqj/KViKo7SIrLdGLdot7vFbiRRw+BgEy3wT9HA==}
 
   '@next/env@14.2.5':
     resolution: {integrity: sha512-/zZGkrTOsraVfYjGP8uM0p6r0BDT6xWpkjdVbcz66PJVSpwXX3yNiRycxAuDfBKGWBrZBXRuK/YVlkNgxHGwmA==}
@@ -93,6 +117,38 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@prisma/adapter-neon@6.1.0':
+    resolution: {integrity: sha512-wVAwpfiDr7O6kq4Gg4M/2grtm79vkdr52osoZItIhYrKcqPaE+H0r+nX7/S5dYLLuaVeB6UAw1SprLxff1rhNA==}
+    peerDependencies:
+      '@neondatabase/serverless': ^0.6.0 || ^0.7.0 || ^0.8.0 || ^0.9.0 || ^0.10.0
+
+  '@prisma/client@6.1.0':
+    resolution: {integrity: sha512-AbQYc5+EJKm1Ydfq3KxwcGiy7wIbm4/QbjCKWWoNROtvy7d6a3gmAGkKjK0iUCzh+rHV8xDhD5Cge8ke/kiy5Q==}
+    engines: {node: '>=18.18'}
+    peerDependencies:
+      prisma: '*'
+    peerDependenciesMeta:
+      prisma:
+        optional: true
+
+  '@prisma/debug@6.1.0':
+    resolution: {integrity: sha512-0himsvcM4DGBTtvXkd2Tggv6sl2JyUYLzEGXXleFY+7Kp6rZeSS3hiTW9mwtUlXrwYbJP6pwlVNB7jYElrjWUg==}
+
+  '@prisma/driver-adapter-utils@6.1.0':
+    resolution: {integrity: sha512-+4MefY+kjWDRRbC986A9X+JM4Dqc/8jqBbbiqmOwtFAD2Ttf87WeBSO2Ef6/rUqqhGQE8YHl86yCik8CF+QlEQ==}
+
+  '@prisma/engines-version@6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959':
+    resolution: {integrity: sha512-PdJqmYM2Fd8K0weOOtQThWylwjsDlTig+8Pcg47/jszMuLL9iLIaygC3cjWJLda69siRW4STlCTMSgOjZzvKPQ==}
+
+  '@prisma/engines@6.1.0':
+    resolution: {integrity: sha512-GnYJbCiep3Vyr1P/415ReYrgJUjP79fBNc1wCo7NP6Eia0CzL2Ot9vK7Infczv3oK7JLrCcawOSAxFxNFsAERQ==}
+
+  '@prisma/fetch-engine@6.1.0':
+    resolution: {integrity: sha512-asdFi7TvPlEZ8CzSZ/+Du5wZ27q6OJbRSXh+S8ISZguu+S9KtS/gP7NeXceZyb1Jv1SM1S5YfiCv+STDsG6rrg==}
+
+  '@prisma/get-platform@6.1.0':
+    resolution: {integrity: sha512-ia8bNjboBoHkmKGGaWtqtlgQOhCi7+f85aOkPJKgNwWvYrT6l78KgojLekE8zMhVk0R9lWcifV0Pf8l3/15V0Q==}
+
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
@@ -101,6 +157,9 @@ packages:
 
   '@types/node@18.11.18':
     resolution: {integrity: sha512-DHQpWGjyQKSHj3ebjFI/wRKcqQcdR+MoFBygntYOZytCqNfkd2ZC4ARDJ2DQqhjH5p85Nnd3jhUJIXrszFX/JA==}
+
+  '@types/pg@8.11.6':
+    resolution: {integrity: sha512-/2WmmBXHLsfRqzfHW7BNZ8SbYzE8OSk7i3WjFYvfgRHj7S1xj+16Je5fUKv3lVdVzk/zn9TXOqf+avFCFIE0yQ==}
 
   '@types/prop-types@15.7.14':
     resolution: {integrity: sha512-gNMvNH49DJ7OJYv+KAKn0Xp45p8PLl6zo2YnvDIbTd4J6MER2BmWN49TG7n9LvkyihINxeKW8+3bfS2yDC9dzQ==}
@@ -114,6 +173,9 @@ packages:
   '@types/scheduler@0.23.0':
     resolution: {integrity: sha512-YIoDCTH3Af6XM5VuwGG/QL/CJqga1Zm3NkU3HZ4ZHK2fRMPYP1VczsTUqtsf43PH/iJNVlPHAo2oWX7BSdB2Hw==}
 
+  '@types/ws@8.5.13':
+    resolution: {integrity: sha512-osM/gWBTPKgHV8XkTunnegTRIsvF6owmf5w+JtAfOw472dptdm0dlGv4xCt6GwQRcC2XVOvvRE/0bAoQcL2QkA==}
+
   busboy@1.6.0:
     resolution: {integrity: sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==}
     engines: {node: '>=10.16.0'}
@@ -126,6 +188,15 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
+  fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
 
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
@@ -164,12 +235,54 @@ packages:
       sass:
         optional: true
 
+  obuf@1.1.2:
+    resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
+
+  pg-int8@1.0.1:
+    resolution: {integrity: sha512-WCtabS6t3c8SkpDBUlb1kjOs7l66xsGdKpIPZsg4wR+B3+u9UAum2odSsF9tnvxg80h4ZxLWMy4pRjOsFIqQpw==}
+    engines: {node: '>=4.0.0'}
+
+  pg-numeric@1.0.2:
+    resolution: {integrity: sha512-BM/Thnrw5jm2kKLE5uJkXqqExRUY/toLHda65XgFTBTFYZyopbKjBe29Ii3RbkvlsMoFwD+tHeGaCjjv0gHlyw==}
+    engines: {node: '>=4'}
+
+  pg-protocol@1.7.0:
+    resolution: {integrity: sha512-hTK/mE36i8fDDhgDFjy6xNOG+LCorxLG3WO17tku+ij6sVHXh1jQUJ8hYAnRhNla4QVD2H8er/FOjc/+EgC6yQ==}
+
+  pg-types@4.0.2:
+    resolution: {integrity: sha512-cRL3JpS3lKMGsKaWndugWQoLOCoP+Cic8oseVcbr0qhPzYD5DWXK+RZ9LY9wxRf7RQia4SCwQlXk0q6FCPrVng==}
+    engines: {node: '>=10'}
+
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
   postcss@8.4.31:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
+
+  postgres-array@3.0.2:
+    resolution: {integrity: sha512-6faShkdFugNQCLwucjPcY5ARoW1SlbnrZjmGl0IrrqewpvxvhSLHimCVzqeuULCbG0fQv7Dtk1yDbG3xv7Veog==}
+    engines: {node: '>=12'}
+
+  postgres-bytea@3.0.0:
+    resolution: {integrity: sha512-CNd4jim9RFPkObHSjVHlVrxoVQXz7quwNFpz7RY1okNNme49+sVyiTvTRobiLV548Hx/hb1BG+iE7h9493WzFw==}
+    engines: {node: '>= 6'}
+
+  postgres-date@2.1.0:
+    resolution: {integrity: sha512-K7Juri8gtgXVcDfZttFKVmhglp7epKb1K4pgrkLxehjqkrgPhfG6OO8LHLkfaqkbpjNRnra018XwAr1yQFWGcA==}
+    engines: {node: '>=12'}
+
+  postgres-interval@3.0.0:
+    resolution: {integrity: sha512-BSNDnbyZCXSxgA+1f5UU2GmwhoI0aU5yMxRGO8CdFEcY2BQF9xm/7MqKnYoM1nJDk8nONNWDk9WeSmePFhQdlw==}
+    engines: {node: '>=12'}
+
+  postgres-range@1.1.4:
+    resolution: {integrity: sha512-i/hbxIE9803Alj/6ytL7UHQxRvZkI9O4Sy+J3HGc4F4oo/2eQAjTSNJ0bfxyse3bH0nuVesCk+3IRLaMtG3H6w==}
+
+  prisma@6.1.0:
+    resolution: {integrity: sha512-aFI3Yi+ApUxkwCJJwyQSwpyzUX7YX3ihzuHNHOyv4GJg3X5tQsmRaJEnZ+ZyfHpMtnyahhmXVfbTZ+lS8ZtfKw==}
+    engines: {node: '>=18.18'}
+    hasBin: true
 
   react-dom@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
@@ -212,7 +325,23 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  ws@8.18.0:
+    resolution: {integrity: sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
+
 snapshots:
+
+  '@neondatabase/serverless@0.10.4':
+    dependencies:
+      '@types/pg': 8.11.6
 
   '@next/env@14.2.5': {}
 
@@ -243,6 +372,41 @@ snapshots:
   '@next/swc-win32-x64-msvc@14.2.5':
     optional: true
 
+  '@prisma/adapter-neon@6.1.0(@neondatabase/serverless@0.10.4)':
+    dependencies:
+      '@neondatabase/serverless': 0.10.4
+      '@prisma/driver-adapter-utils': 6.1.0
+      postgres-array: 3.0.2
+
+  '@prisma/client@6.1.0(prisma@6.1.0)':
+    optionalDependencies:
+      prisma: 6.1.0
+
+  '@prisma/debug@6.1.0': {}
+
+  '@prisma/driver-adapter-utils@6.1.0':
+    dependencies:
+      '@prisma/debug': 6.1.0
+
+  '@prisma/engines-version@6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959': {}
+
+  '@prisma/engines@6.1.0':
+    dependencies:
+      '@prisma/debug': 6.1.0
+      '@prisma/engines-version': 6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959
+      '@prisma/fetch-engine': 6.1.0
+      '@prisma/get-platform': 6.1.0
+
+  '@prisma/fetch-engine@6.1.0':
+    dependencies:
+      '@prisma/debug': 6.1.0
+      '@prisma/engines-version': 6.1.0-21.11f085a2012c0f4778414c8db2651556ee0ef959
+      '@prisma/get-platform': 6.1.0
+
+  '@prisma/get-platform@6.1.0':
+    dependencies:
+      '@prisma/debug': 6.1.0
+
   '@swc/counter@0.1.3': {}
 
   '@swc/helpers@0.5.5':
@@ -251,6 +415,12 @@ snapshots:
       tslib: 2.8.1
 
   '@types/node@18.11.18': {}
+
+  '@types/pg@8.11.6':
+    dependencies:
+      '@types/node': 18.11.18
+      pg-protocol: 1.7.0
+      pg-types: 4.0.2
 
   '@types/prop-types@15.7.14': {}
 
@@ -266,6 +436,10 @@ snapshots:
 
   '@types/scheduler@0.23.0': {}
 
+  '@types/ws@8.5.13':
+    dependencies:
+      '@types/node': 18.11.18
+
   busboy@1.6.0:
     dependencies:
       streamsearch: 1.1.0
@@ -275,6 +449,11 @@ snapshots:
   client-only@0.0.1: {}
 
   csstype@3.1.3: {}
+
+  dotenv@16.4.7: {}
+
+  fsevents@2.3.3:
+    optional: true
 
   graceful-fs@4.2.11: {}
 
@@ -313,6 +492,24 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
+  obuf@1.1.2: {}
+
+  pg-int8@1.0.1: {}
+
+  pg-numeric@1.0.2: {}
+
+  pg-protocol@1.7.0: {}
+
+  pg-types@4.0.2:
+    dependencies:
+      pg-int8: 1.0.1
+      pg-numeric: 1.0.2
+      postgres-array: 3.0.2
+      postgres-bytea: 3.0.0
+      postgres-date: 2.1.0
+      postgres-interval: 3.0.0
+      postgres-range: 1.1.4
+
   picocolors@1.1.1: {}
 
   postcss@8.4.31:
@@ -320,6 +517,24 @@ snapshots:
       nanoid: 3.3.8
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  postgres-array@3.0.2: {}
+
+  postgres-bytea@3.0.0:
+    dependencies:
+      obuf: 1.1.2
+
+  postgres-date@2.1.0: {}
+
+  postgres-interval@3.0.0: {}
+
+  postgres-range@1.1.4: {}
+
+  prisma@6.1.0:
+    dependencies:
+      '@prisma/engines': 6.1.0
+    optionalDependencies:
+      fsevents: 2.3.3
 
   react-dom@18.2.0(react@18.2.0):
     dependencies:
@@ -347,3 +562,5 @@ snapshots:
   tslib@2.8.1: {}
 
   typescript@5.7.2: {}
+
+  ws@8.18.0: {}
