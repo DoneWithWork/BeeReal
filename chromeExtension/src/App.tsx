@@ -6,25 +6,35 @@ import { Card } from './components/ui/card';
 import { cn } from './lib/utils';
 
 function App() {
-  const [coupons, setCoupons] = useState([]);
+  const [coupons, setCoupons] = useState<string[]>([]);
   const [pageIcon, setPageIcon] = useState<string>('');
   const [domain, setDomain] = useState<string>('');
   const [copiedCoupons, setCopiedCoupons] = useState<string[]>([]); // Track copied coupons
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
 
   useEffect(() => {
     const getCoupons = async (url: string) => {
-      const response = await fetch(
-        `http://localhost:3000/api/coupons?url=${url}`
-      );
-      if (!response.ok) {
-        console.error('Failed to fetch coupons');
-        return;
+      setLoading(true); // Set loading state
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/coupons?url=${url}`
+        );
+        if (!response.ok) {
+          console.error('Failed to fetch coupons');
+          setCoupons([]);
+          return;
+        }
+        const data = await response.json();
+        console.log(data);
+        setCoupons(data.codes || []);
+      } catch (error) {
+        console.error('Error fetching coupons:', error);
+        setCoupons([]);
+      } finally {
+        setLoading(false); // Clear loading state
       }
-      const data = await response.json();
-
-      console.log(data);
-      setCoupons(data.codes);
     };
+
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       if (tabs.length > 0) {
         const tab = tabs[0];
@@ -46,47 +56,49 @@ function App() {
               getCoupons(actualDomain);
             } else {
               console.error('Invalid domain');
+              setCoupons([]);
             }
           } catch {
             console.error('Invalid domain');
+            setCoupons([]);
           }
         }
       } else {
         setCoupons([]);
       }
     });
-    // fetchCoupons(domain, setCouponsDomain);
-
-    console.log('App mounted');
-  });
+  }, []);
 
   const handleCopy = (coupon: string) => {
     navigator.clipboard.writeText(coupon).then(() => {
-      // Add copied coupon to the list
-      setCopiedCoupons((prevCopiedCoupons) => [...prevCopiedCoupons, coupon]);
+      setCopiedCoupons((prev) => [...prev, coupon]);
 
-      // Reset copied coupons after 2 seconds
       setTimeout(() => {
-        setCopiedCoupons((prevCopiedCoupons) =>
-          prevCopiedCoupons.filter((copiedCoupon) => copiedCoupon !== coupon)
-        );
+        setCopiedCoupons((prev) => prev.filter((copied) => copied !== coupon));
       }, 2000);
     });
   };
+
   return (
-    <div className="bg-gray-100   w-[350px]  ">
-      <div className=" flex flex-col items-center justify-center">
+    <div className="bg-gray-100 w-[350px]">
+      <div className="flex flex-col items-center justify-center">
         <h1 className="font-bold text-4xl p-2 text-black">BeeReal</h1>
       </div>
-      {coupons.length === 0 ? (
+      {loading ? (
         <div>
-          <p className="font-bold text-gray-700 text-xl text-center my-3 h-[50px]">
+          <p className="font-bold text-gray-700 text-xl text-center py-3 h-[50px]">
+            Loading coupons...
+          </p>
+        </div>
+      ) : coupons.length === 0 ? (
+        <div>
+          <p className="font-bold text-gray-700 text-xl text-center py-3 h-[50px]">
             No coupons found
           </p>
         </div>
       ) : (
         <>
-          <div className=" bg-gray-200 flex flex-row gap-2 items-center py-3 px-3 mb-3">
+          <div className="bg-gray-200 flex flex-row gap-2 items-center py-3 px-3 mb-3">
             <img
               width={40}
               height={40}
@@ -98,29 +110,28 @@ function App() {
           </div>
           <div className="bg-gray-50 border-t-2 border-t-gray-300">
             <p className="font-semibold text-gray-700 text-2xl mt-3 mb-4 px-3">
-              {chrome.i18n.getMessage('Coupons')}
+              Coupons
             </p>
 
-            <div className="flex flex-col px-2  gap-3 max-h-[400px] overflow-y-auto py-2">
-              {coupons &&
-                coupons.map((coupon) => (
-                  <Card
-                    key={coupon}
-                    className="flex flex-row justify-between items-center p-2 mx-2 hover:scale-[102%] transition-transform duration-300"
+            <div className="flex flex-col px-2 gap-3 max-h-[400px] overflow-y-auto py-2">
+              {coupons.map((coupon) => (
+                <Card
+                  key={coupon}
+                  className="flex flex-row justify-between items-center p-2 mx-2 hover:scale-[102%] transition-transform duration-300"
+                >
+                  <p className="font-semibold text-xl text-gray-700">
+                    {coupon}
+                  </p>
+                  <Button
+                    onClick={() => handleCopy(coupon)}
+                    className={cn(
+                      copiedCoupons.includes(coupon) ? 'bg-blue-700 ' : ''
+                    )}
                   >
-                    <p className="font-semibold text-xl text-gray-700">
-                      {coupon}
-                    </p>
-                    <Button
-                      onClick={() => handleCopy(coupon)}
-                      className={cn(
-                        copiedCoupons.includes(coupon) ? 'bg-blue-700 ' : ''
-                      )}
-                    >
-                      {copiedCoupons.includes(coupon) ? 'Copied!' : 'Copy'}
-                    </Button>
-                  </Card>
-                ))}
+                    {copiedCoupons.includes(coupon) ? 'Copied!' : 'Copy'}
+                  </Button>
+                </Card>
+              ))}
             </div>
           </div>
         </>

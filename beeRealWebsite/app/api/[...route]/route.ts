@@ -6,7 +6,8 @@ import { cors } from 'hono/cors';
 
 const app = new Hono().basePath('/api').use(
   cors({
-    origin: process.env.NODE_ENV === 'production' ? 'https://beereal.app' : '*',
+    origin:
+      process.env.NODE_ENV === 'production' ? 'https://joinbeereal.com' : '*',
     allowMethods: ['GET', 'POST'],
   })
 );
