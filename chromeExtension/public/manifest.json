@@ -3,7 +3,7 @@
   "name": "BeeReal",
   "version": "0.1.0",
   "description": "BeeReal - A Honey Alternative. Find and apply the best coupon codes automatically",
-  "default_locale": "ms",
+  "default_locale": "en",
   "action": {
     "default_popup": "index.html",
     "default_icon": {
@@ -27,5 +27,5 @@
       "matches": ["<all_urls>"]
     }
   ],
-  "permissions": ["activeTab", "storage"]
+  "permissions": ["activeTab"]
 }

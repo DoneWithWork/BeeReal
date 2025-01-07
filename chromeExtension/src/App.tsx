@@ -12,43 +12,48 @@ function App() {
   const [copiedCoupons, setCopiedCoupons] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getCoupons = useCallback(async (url: string) => {
-    fetchCoupouns(url, setCoupons, setLoading);
-  }, []);
-
-  useEffect(() => {
-    async function getTabInfo() {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-        if (tabs.length > 0) {
-          const tab = tabs[0];
-          if (tab.url) {
-            const url = new URL(tab.url);
-            const fullDomain = url.hostname.replace('www.', '');
-            const parseResult = parseDomain(fullDomain);
-
-            try {
-              if (parseResult.type === ParseResultType.Listed) {
-                const { domain, topLevelDomains } = parseResult;
-                const actualDomain = `${domain}.${topLevelDomains.join('.')}`;
-                console.log('Domain:', actualDomain);
-                setDomain(actualDomain);
-                setPageIcon(
-                  `https://www.google.com/s2/favicons?sz=64&domain=${actualDomain}`
-                );
-                getCoupons(actualDomain); // Fetch coupons
-              } else {
-                console.error('Invalid domain');
-              }
-            } catch {
-              console.error('Invalid domain');
-            }
-          }
-        }
-      });
+  const handleDomainParsing = useCallback(async (url: URL) => {
+    const fullDomain = url.hostname.replace('www.', '');
+    const parseResult = parseDomain(fullDomain);
+    try {
+      if (parseResult.type === ParseResultType.Listed) {
+        const { domain, topLevelDomains } = parseResult;
+        const actualDomain = `${domain}.${topLevelDomains.join('.')}`;
+        console.log('Domain:', actualDomain);
+        setDomain(actualDomain);
+        setPageIcon(
+          `https://www.google.com/s2/favicons?sz=64&domain=${actualDomain}`
+        );
+        await fetchCoupouns(actualDomain, setCoupons, setLoading);
+      } else {
+        console.error('Invalid domain');
+      }
+    } catch {
+      console.error('Invalid domain');
     }
+  }, []);
+  const handleChromeTab = useCallback(() => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length > 0) {
+        const tab = tabs[0];
+        if (tab.url) {
+          const url = new URL(tab.url);
 
-    getTabInfo();
-  }, [domain, getCoupons]);
+          handleDomainParsing(url);
+        }
+      }
+    });
+  }, [handleDomainParsing]);
+  useEffect(() => {
+    if (!chrome.tabs) {
+      const url = new URL(window.location.href.replace('www.', ''));
+      url.search = '';
+
+      handleDomainParsing(url);
+    } else {
+      handleChromeTab();
+    }
+  }, [handleChromeTab, handleDomainParsing]);
 
   const handleCopy = (coupon: string) => {
     navigator.clipboard.writeText(coupon).then(() => {
