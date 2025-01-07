@@ -1,11 +1,16 @@
 {
   "manifest_version": 3,
   "name": "BeeReal",
-  "version": "1.0.0",
-  "description": "BeeReal - A Honey Alternative",
+  "version": "0.1.0",
+  "description": "BeeReal - A Honey Alternative. Find and apply the best coupon codes automatically",
   "default_locale": "ms",
   "action": {
-    "default_popup": "index.html"
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icons/16beeReal.png",
+      "48": "icons/48beeReal.png",
+      "128": "icons/128beeReal.png"
+    }
   },
   "background": {
     "service_worker": "background.js"
@@ -14,6 +19,12 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["icons/128beeReal.png", "_locales/*/messages.json"],
+      "matches": ["<all_urls>"]
     }
   ],
   "permissions": ["activeTab", "storage"]

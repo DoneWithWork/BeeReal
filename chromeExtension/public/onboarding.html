@@ -3,9 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to BeeReal</title>
+    <title>BeeReal</title>
+    <meta name="description" content="BeeReal Chrome Extension" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="icons/128beeReal.png"
+      sizes="128x128"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #eff6ff;
+        font-family: 'Inter', sans-serif;
+        text-align: center;
+        display: grid;
+        place-items: center;
+        height: 100vh;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+      .btn {
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 12px;
+        transition: all 0.3s ease 0s;
+      }
+      .btn:hover {
+        transform: scale(1.05);
+      }
+      .btn a {
+        color: white;
+        font-weight: bold;
+      }
+    </style>
   </head>
   <body>
-    <p>Hello</p>
+    <div>
+      <div class="row">
+        <img
+          src="icons/128beeReal.png"
+          alt="beeReal logo"
+          width="80"
+          height="80"
+        />
+        <div>
+          <h1 style="font-size: 40px; font-weight: bold">Welcome To BeeReal</h1>
+          <p style="margin-top: 10px; font-size: 20px">
+            Thank you and hope you enjoy your savings
+          </p>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 20px">
+        <button class="btn" style="background-color: #3b82f6">
+          <a
+            href="https://github.com/DoneWithWork/BeeReal"
+            target="_blank"
+            style="text-decoration: none"
+            referrerpolicy="no-referrer"
+          >
+            <span className="text-lg">Visit Our Github</span>
+          </a>
+        </button>
+        <button class="btn" style="background-color: #4caf50">
+          <a
+            href="https://joinbeereal.com"
+            target="_blank"
+            style="text-decoration: none"
+            referrerpolicy="no-referrer"
+          >
+            <span className="text-lg">BeeReal Website</span>
+          </a>
+        </button>
+      </div>
+    </div>
   </body>
 </html>

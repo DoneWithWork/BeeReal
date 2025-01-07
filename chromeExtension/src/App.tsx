@@ -1,73 +1,54 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import './App.css';
 import { parseDomain, ParseResultType } from 'parse-domain';
 import { Button } from './components/ui/button';
 import { Card } from './components/ui/card';
-import { cn } from './lib/utils';
+import { cn, fetchCoupouns } from './lib/utils';
 
 function App() {
   const [coupons, setCoupons] = useState<string[]>([]);
   const [pageIcon, setPageIcon] = useState<string>('');
   const [domain, setDomain] = useState<string>('');
-  const [copiedCoupons, setCopiedCoupons] = useState<string[]>([]); // Track copied coupons
-  const [loading, setLoading] = useState<boolean>(false); // Loading state
+  const [copiedCoupons, setCopiedCoupons] = useState<string[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const getCoupons = useCallback(async (url: string) => {
+    fetchCoupouns(url, setCoupons, setLoading);
+  }, []);
 
   useEffect(() => {
-    const getCoupons = async (url: string) => {
-      setLoading(true); // Set loading state
-      try {
-        const response = await fetch(
-          `http://localhost:3000/api/coupons?url=${url}`
-        );
-        if (!response.ok) {
-          console.error('Failed to fetch coupons');
-          setCoupons([]);
-          return;
-        }
-        const data = await response.json();
-        console.log(data);
-        setCoupons(data.codes || []);
-      } catch (error) {
-        console.error('Error fetching coupons:', error);
-        setCoupons([]);
-      } finally {
-        setLoading(false); // Clear loading state
-      }
-    };
+    async function getTabInfo() {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs.length > 0) {
+          const tab = tabs[0];
+          if (tab.url) {
+            const url = new URL(tab.url);
+            const fullDomain = url.hostname.replace('www.', '');
+            const parseResult = parseDomain(fullDomain);
 
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs.length > 0) {
-        const tab = tabs[0];
-        if (tab.url) {
-          const url = new URL(tab.url);
-          const fullDomain = url.hostname.replace('www.', '');
-          const parseResult = parseDomain(fullDomain);
-
-          try {
-            if (parseResult.type === ParseResultType.Listed) {
-              const { domain, topLevelDomains } = parseResult;
-
-              const actualDomain = `${domain}.${topLevelDomains.join('.')}`;
-              setDomain(actualDomain);
-              setPageIcon(
-                `https://www.google.com/s2/favicons?sz=64&domain=${actualDomain}`
-              );
-              console.log(actualDomain);
-              getCoupons(actualDomain);
-            } else {
+            try {
+              if (parseResult.type === ParseResultType.Listed) {
+                const { domain, topLevelDomains } = parseResult;
+                const actualDomain = `${domain}.${topLevelDomains.join('.')}`;
+                console.log('Domain:', actualDomain);
+                setDomain(actualDomain);
+                setPageIcon(
+                  `https://www.google.com/s2/favicons?sz=64&domain=${actualDomain}`
+                );
+                getCoupons(actualDomain); // Fetch coupons
+              } else {
+                console.error('Invalid domain');
+              }
+            } catch {
               console.error('Invalid domain');
-              setCoupons([]);
             }
-          } catch {
-            console.error('Invalid domain');
-            setCoupons([]);
           }
         }
-      } else {
-        setCoupons([]);
-      }
-    });
-  }, []);
+      });
+    }
+
+    getTabInfo();
+  }, [domain, getCoupons]);
 
   const handleCopy = (coupon: string) => {
     navigator.clipboard.writeText(coupon).then(() => {
@@ -78,24 +59,25 @@ function App() {
       }, 2000);
     });
   };
-
   return (
-    <div className="bg-gray-100 w-[350px]">
-      <div className="flex flex-col items-center justify-center">
+    <div className="bg-gray-100 w-[350px] h-full overflow-y-auto">
+      <div className="flex flex-row items-center justify-center gap-2 py-2">
+        <img
+          src="/icons/128beeReal.png"
+          alt="beeReal"
+          className="w-12 h-12 aspect-square"
+        />
         <h1 className="font-bold text-4xl p-2 text-black">BeeReal</h1>
       </div>
+
       {loading ? (
-        <div>
-          <p className="font-bold text-gray-700 text-xl text-center py-3 h-[50px]">
-            Loading coupons...
-          </p>
-        </div>
+        <p className="font-bold text-gray-700 text-xl text-center py-3 h-[50px]">
+          Loading coupons...
+        </p>
       ) : coupons.length === 0 ? (
-        <div>
-          <p className="font-bold text-gray-700 text-xl text-center py-3 h-[50px]">
-            No coupons found
-          </p>
-        </div>
+        <p className="font-bold text-gray-700 text-xl text-center py-3 h-[50px]">
+          No coupons found
+        </p>
       ) : (
         <>
           <div className="bg-gray-200 flex flex-row gap-2 items-center py-3 px-3 mb-3">
