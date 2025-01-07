@@ -13,7 +13,7 @@ We actively support the latest major release of the BeeReal extension. Older ver
 
 If you discover a security vulnerability in BeeReal, please help us fix it by following these steps:
 
-1. **Contact us privately**: Do not post the vulnerability in a public issue tracker. Instead, send an email to [donewithwork@gmail.com](mailto:donewithwork@gmail.com). Include:
+1. **Contact us privately**: Do not post the vulnerability in a public issue tracker. Instead, send an email to [donewithworkyt@gmail.com](mailto:donewithworkyt@gmail.com). Include:
    - A detailed description of the vulnerability.
    - Steps to reproduce the issue.
    - The impact it has on the extension or users.
@@ -30,4 +30,4 @@ BeeReal follows these security principles to protect user data and maintain exte
 - Does not collect or store sensitive user data without consent.
 - Regularly reviews dependencies and patches known vulnerabilities.
 
-For any additional questions or concerns, contact [donewithwork@gmail.com](mailto:donewithwork@gmail.com).
+For any additional questions or concerns, contact [donewithworkyt@gmail.com](mailto:donewithworkyt@gmail.com).
