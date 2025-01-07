@@ -22,7 +22,15 @@ export default function Footer() {
           <p className="font-bold text-lg">Download Extension</p>
           <ul className="space-y-4 mt-4 ">
             <li>
-              <Link href={''}>Chrome</Link>
+              <Link
+                href={
+                  'https://chromewebstore.google.com/detail/syrup-open-beta/eoceajigegilohomonddngegejeighof'
+                }
+                target="_blank"
+                referrerPolicy="no-referrer"
+              >
+                Chrome
+              </Link>
             </li>
           </ul>
         </div>
