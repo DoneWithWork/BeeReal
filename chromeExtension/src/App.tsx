@@ -100,7 +100,7 @@ function App() {
               Coupons
             </p>
 
-            <div className="flex flex-col px-2 gap-3 max-h-[400px] overflow-y-auto py-2">
+            <div className="flex flex-col px-2 gap-3 max-h-[380px] overflow-y-scroll py-2 scrollbar">
               {coupons.map((coupon) => (
                 <Card
                   key={coupon}

@@ -34,7 +34,11 @@ const question = [
 ];
 export default function FAQ() {
   return (
-    <Accordion type="single" collapsible className="w-full my-4">
+    <Accordion
+      type="single"
+      collapsible
+      className="w-[90%] mx-auto my-4 mt-40 "
+    >
       <h3 className="heading-title text-4xl text-center">FAQ</h3>
       {question.map((item, index) => (
         <AccordionItem key={index} value={`item-${index}`}>

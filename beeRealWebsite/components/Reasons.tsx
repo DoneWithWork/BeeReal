@@ -1,23 +1,27 @@
+import { Code, Database, ShoppingBag } from 'lucide-react';
 import React from 'react';
 
 const reasons = [
   {
     title: 'Shop Smarter',
+    icon: ShoppingBag,
     description: 'Save money while you shop for no added cost',
   },
   {
     title: 'Your data is your data',
+    icon: Database,
     description: 'We do not sell your data to third-party companies',
   },
   {
     title: 'Open Source',
+    icon: Code,
     description:
       'Fork It, Build it locally, do whatever you like with it. It is open source',
   },
 ];
 export default function Reasons() {
   return (
-    <div className="mx-3 my-40">
+    <div className="mx-3 mt-40  ">
       <p className="heading-title text-5xl text-center">Why Choose BeeReal</p>
       <p className="text-center mt-5 text-lg text-gray-700">
         Join Smart Shoppers who save valuable time and hard earned cash with
@@ -29,6 +33,7 @@ export default function Reasons() {
             key={index}
             className="bg-gray-50 p-6 shadow-lg rounded-lg space-y-3"
           >
+            <reason.icon size={35} className="size-10 text-blue-600" />
             <p className="font-bold text-2xl">{reason.title}</p>
             <p className="text-gray-700 font-semibold">{reason.description}</p>
           </div>

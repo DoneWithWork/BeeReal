@@ -2,5 +2,13 @@
   "Coupons": {
     "message": "Coupons",
     "description": "Coupons"
+  },
+  "No_Coupons": {
+    "message": "No Coupons",
+    "description": "No Coupons"
+  },
+  "Loading_Coupons": {
+    "message": "Loading Coupons...",
+    "description": "Loading Coupons..."
   }
 }
