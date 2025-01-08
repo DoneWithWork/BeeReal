@@ -1,36 +1,20 @@
 'use client';
-import { Button, buttonVariants } from '@/components/ui/button';
+import { buttonVariants } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { SiGithub } from '@icons-pack/react-simple-icons';
-import { Card } from '@/components/ui/card';
-import Github from '@/components/Github';
+import { SiGithub, SiGooglechrome } from '@icons-pack/react-simple-icons';
+
 import Footer from '@/components/Footer';
 import Contribute from '@/components/Contribute';
-import Badge from '@/components/Badge';
 import FAQ from '@/components/FAQ';
 import MaxWidthWrapper from '@/components/MaxWidthWrapper';
 import Reasons from '@/components/Reasons';
+import { cn } from '@/lib/utils';
+
 export default function Home() {
-  const [message, setMessage] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch('/api/hello');
-      const { message } = await res.json();
-      setMessage(message);
-    };
-    fetchData();
-  }, []);
-
   return (
     <div className="">
-      <nav className="flex flex-row justify-between items-center px-4 py-5">
-        <p>BeeReal</p>
-        <Badge />
-      </nav>
-      <div className="max-w-[1300px] mx-auto flex flex-col items-center text-center mt-20 h-screen">
+      <div className="max-w-[1300px] mx-auto flex flex-col items-center text-center mt-10 md:mt-20">
         <h2 className="heading-title">
           Unlock Instant{' '}
           <span className="w-full text-green-600 underline leading-snug">
@@ -42,6 +26,16 @@ export default function Home() {
           Say goodbye to searching and overspending—BeeReal finds coupon codes
           on thousands of your favorite sites.
         </p>
+        <div className="aspect-w-16 aspect-h-9 rounded-xl mt-10 md:mt-20 mx-2">
+          <Image
+            src={'/landing.png'}
+            alt="landing image"
+            width={900}
+            height={800}
+            className="object-cover rounded-xl"
+          />
+        </div>
+
         <div className="mt-10 flex flex-row items-center gap-10">
           <Link
             href={'https://github.com/DoneWithWork/BeeReal'}
@@ -51,11 +45,16 @@ export default function Home() {
             <span className="text-lg">Github</span>
           </Link>
           <Link
-            href={'https://github.com/DoneWithWork/BeeReal'}
-            className={buttonVariants({ size: 'lg' })}
+            href={
+              'https://chromewebstore.google.com/detail/syrup-open-beta/kaafcgngoeipfldbnkpbajlplemhcnbl'
+            }
+            className={cn(
+              buttonVariants({ size: 'lg' }),
+              'bg-orange-500 hover:bg-orange-600'
+            )}
           >
-            <SiGithub className="h-20" />
-            <span className="text-lg">Github</span>
+            <SiGooglechrome className="h-20" />
+            <span className="text-lg">Chrome</span>
           </Link>
         </div>
       </div>

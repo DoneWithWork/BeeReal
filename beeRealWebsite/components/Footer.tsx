@@ -24,7 +24,7 @@ export default function Footer() {
             <li>
               <Link
                 href={
-                  'https://chromewebstore.google.com/detail/syrup-open-beta/eoceajigegilohomonddngegejeighof'
+                  'https://chromewebstore.google.com/detail/syrup-open-beta/kaafcgngoeipfldbnkpbajlplemhcnbl'
                 }
                 target="_blank"
                 referrerPolicy="no-referrer"

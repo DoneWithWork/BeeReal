@@ -16,16 +16,13 @@ export const fetchCoupouns = async (
 ) => {
   setLoading(true);
   try {
-    console.log(`Fetching coupons for URL: ${url}`);
     const response = await fetch(
       `https://joinbeereal.com/api/coupons?url=${url}`
     );
     console.log('Url', url);
-    if (!response.ok) {
-      console.error('Failed to fetch coupons:', response.statusText);
-      setCoupons([]);
-      return;
-    }
+
+    console.error('Failed to fetch coupons:', response.statusText);
+    setCoupons([]);
 
     const data: CouponResponse = await response.json();
     console.log('Fetched Coupons:', data);
